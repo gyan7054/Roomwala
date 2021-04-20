@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<head>
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+   <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyDtUjLqHlv2rUFB3_wojRojyJKCf7L2KTA",
+    authDomain: "roomwala-3499e.firebaseapp.com",
+    databaseURL: "https://roomwala-3499e-default-rtdb.firebaseio.com",
+    projectId: "roomwala-3499e",
+    storageBucket: "roomwala-3499e.appspot.com",
+    messagingSenderId: "268971439203",
+    appId: "1:268971439203:web:f702eccfca87f4ed363456"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+  
+  <div id="main">
+<div id="background">
+<img id="back" src="/img/bc1.jpg" alt="">
+</div>
+<div id="logo" >
+<img src="/img/logo.png" alt="not found">
+</div>
+<div id="content">
+    <h3 id="para">Search Your Room With Zero Brokage</h3>
+</div>
+
+
+<header>
+
+<nav class="navbar">
+
+<ul class="nvcontent">
+
+<li  id="li1" class="list"></li>
+<li class="list"><a href="sinup.html">New User</a></li>
+<li id="li3"  class="list"><a href="about.html" target="_blank">About</a></li>
+<li  id="li3"  class="list"><a href="index.html">Home</a></li>
+
+</ul> 
+</nav>
+</header>
+
+
+<div id="login">
+  
+<input id="username" class="login1" type="text" placeholder="username">
+<br>
+<input id="password" class="login1" type="password" placeholder="password">
+<button class="lbtn" onclick="login()">Login</button>
+
+</div>
+
+ <!--<div id="searchbar">
+  <input id="inside_search" type="text" placeholder="Search Here">
+</div> -->
+
+<div id="follow">
+
+<h1 id="followheading">Follow us on</h1>
+<div id="followmain">
+<div>
+  <a  id="facebook" href="https://www.facebook.com/" class="fa fa-facebook"></a>
+</div>
+<div>
+  <a  id="instagram" href="https://www.instagram.com/" class="fa fa-instagram"></a>
+</div>
+<div>
+  <a id="linkdin"   href="https://www.linkedin.com/feed/" class="fa fa-linkedin"></a>  
+</div>
+</div>
+
+</div>
+  </div>   
+  
+  <script>
+    function login()
+    {
+      var uname=document.getElementById("username").value;
+      var password=document.getElementById("password").value;
+      if(uname==="" || password==="")
+      {
+        alert("Please Enter all details first...");
+      }
+      else{
+        firebase.database().ref('users/'+uname+"/Password").once("value").then(function(snapshot) {
+    if (snapshot.exists()) {
+     if(password===snapshot.val())
+     {
+      window.location.href = "search.html";
+     }
+     else
+     {
+       alert("Wrong Password");
+     }
+    }
+    else {
+      alert("Username not found");
+    }
+  });
+  document.getElementById("username").value="";
+  document.getElementById("password").value="";
+      }
+    }
+  </script>
+</body>
+</html>
