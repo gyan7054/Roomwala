@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<head>
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+       <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyDtUjLqHlv2rUFB3_wojRojyJKCf7L2KTA",
+    authDomain: "roomwala-3499e.firebaseapp.com",
+    databaseURL: "https://roomwala-3499e-default-rtdb.firebaseio.com",
+    projectId: "roomwala-3499e",
+    storageBucket: "roomwala-3499e.appspot.com",
+    messagingSenderId: "268971439203",
+    appId: "1:268971439203:web:f702eccfca87f4ed363456"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  </script>
+<div id="main">
+
+<img id="search" src="/img/search.jpg" alt="">
+
+<div id="searching">
+
+<input id="searchtext" type="text" placeholder="Enter your city">
+<button id="btnsearch"  onclick="search1()">search</button>
+</div>
+<div id="details">
+
+</div>
+<div id="searchhome">
+  <li  id="li3"  class="list"><a href="index.html">Home</a></li>
+</div>
+</div>
+<script>
+    var e=document.getElementById("details");
+   
+    function search1()
+    {
+        while (e.firstChild) {
+        e.removeChild(e.firstChild);
+    }
+    var tt=0;
+    firebase.database().ref('cities/'+document.getElementById("searchtext").value).once('value').then(function(snapshot) {
+   if(snapshot.exists())
+   {
+        snapshot.forEach(function(child)
+   {
+     var image=document.createElement("img");
+     image.src=child.child("image").val();
+     image.setAttribute('class','image1');
+     var div=document.createElement("div");
+     div.setAttribute('class','innerdiv');
+     var p1=document.createElement("p");
+     p1.innerHTML=child.child("name").val();
+     p1.setAttribute('class','para');
+     var p2=document.createElement("p");
+     p2.innerHTML=child.child("location").val();
+     p2.setAttribute('class','para');
+     var p3=document.createElement("p");
+     p3.innerHTML=child.child("contact").val();
+     p3.setAttribute('class','para');
+     var br=document.createElement("br");
+     e.appendChild(image);
+     div.appendChild(p1);
+     div.appendChild(p2);
+     div.appendChild(p3);
+     e.appendChild(div);
+     e.appendChild(br);
+   });
+   document.getElementById("searchtext").value="";
+}
+else
+{
+    var pp=document.createElement("p");
+     pp.innerHTML="NO ";
+     pp.innerHTML="NO ";
+     pp.innerHTML="NO data";
+     pp.setAttribute('class','para');
+     e.appendChild(pp);
+}
+  });
+}
+</script>
+</body>
+</html>

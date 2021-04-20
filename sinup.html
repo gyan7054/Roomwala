@@ -1,0 +1,117 @@
+    <!DOCTYPE html>
+
+<head>
+   
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyDtUjLqHlv2rUFB3_wojRojyJKCf7L2KTA",
+    authDomain: "roomwala-3499e.firebaseapp.com",
+    databaseURL: "https://roomwala-3499e-default-rtdb.firebaseio.com",
+    projectId: "roomwala-3499e",
+    storageBucket: "roomwala-3499e.appspot.com",
+    messagingSenderId: "268971439203",
+    appId: "1:268971439203:web:f702eccfca87f4ed363456"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+     function writeUserData() {
+         var uname=document.getElementById("username").value;
+        var fname= document.getElementById("fname").value;
+        var lname= document.getElementById("lname").value;
+        var email= document.getElementById("email").value;
+        var location= document.getElementById("location").value;
+        var password=document.getElementById("password").value;
+        if(uname==="" || fname==="" || lname===""||email===""||location===""||password==="")
+        {
+        alert("please complete all fields");
+        }
+        else{
+          firebase.database().ref('users/'+uname+"/Password").once("value").then(function(snapshot) {
+    if (snapshot.exists()) {
+      alert("Username already exists");
+    }
+    else {
+      firebase.database().ref('users/'+uname).set({
+    username:uname,
+    firstName:fname,
+    lastName:lname,
+    Email:email,
+    Location:location,
+    Password:password
+  });
+  alert("Data successfully added");
+  window.location.href = "index.html";
+    }
+  });
+   
+}
+}
+
+</script>
+ <div id="mainsinup">
+     <div id="sinup1">
+<img id="sinupimg" src="/img/sinup.jpg" alt="">
+</div>
+<div id="sinup_heading">
+  <h1>Sign Up</h1>  
+</div>
+<div id="sinup_container">
+<!-- <label for="fname">First name</label> -->
+<br>
+
+
+<input  class="inside_sinup" id="username" type="text" placeholder="Enter your Username name" >
+<br>
+<!-- <label for="lname">Last name</label> -->
+<br>
+
+<input  class="inside_sinup" id="fname" type="text" placeholder="Enter your First name" >
+<br>
+<!-- <label for="lname">Last name</label> -->
+<br>
+<input  class="inside_sinup" type="text" placeholder="Enter your Last name" id="lname">
+<br>
+<!-- <label for="email">email</label> -->
+<br>
+<input  class="inside_sinup" type="email" placeholder="Enter your Email " id="email">
+<br>
+<!-- <label for="location">Location</label> -->
+<br>
+<input  class="inside_sinup" type="text" placeholder="Enter your Location " id="location">
+<br>
+<br>
+<!-- <label for="password">password</label> -->
+<input   class="inside_sinup" type="password" placeholder="Enter your password " id="password">
+<br>
+<br>
+<button   id="submit" onclick="writeUserData()">submit</button>
+
+
+
+
+    
+
+</div>
+
+
+ </div>   
+</body>
+</html>
+
+
+
+
